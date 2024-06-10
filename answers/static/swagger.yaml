@@ -1,0 +1,83 @@
+openapi: "3.0.3"
+info:
+  title: Weather API
+  description: This api returns historic weather station data and weather statistics.
+  version: "1.0.0"
+tags:
+  - name: weather
+    description: For historic weather data
+  - name: statistics
+    description: For statistics about historic weather data
+paths:
+  /api/weather:
+    get:
+      tags:
+        - weather
+      summary: Returns historic weather data.
+      operationId: weather
+      parameters:
+        - name: date
+          in: query
+          required: false
+          description: The date as a string.
+          schema:
+            type: string
+            example: 1990-01-01
+        - name: station-id
+          in: query
+          required: false
+          description: The weather station ID.
+          schema:
+            type: string
+            example: USC00112140
+        - name: page
+          in: query
+          required: false
+          description: Page number, with a max of 100 results per page.
+          schema:
+            type: integer
+            format: int64
+            default: 1
+      responses:
+        '200':    # status code
+          description: A JSON array of weather data
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/weather/stats:
+    get:
+      tags:
+        - statistics
+      summary: Returns statistics about historic weather data.
+      operationId: statistics
+      parameters:
+        - name: date
+          in: query
+          required: false
+          description: The date as a string.
+          schema:
+            type: string
+            example: 1990-01-01
+        - name: station-id
+          in: query
+          required: false
+          description: The weather station ID.
+          schema:
+            type: string
+            example: USC00112140
+        - name: page
+          in: query
+          required: false
+          description: Page number, with a max of 100 results per page.
+          schema:
+            type: integer
+            format: int64
+            default: 1
+      responses:
+        '200':    # status code
+          description: A JSON array of weather data
+          content:
+            application/json:
+              schema:
+                type: object
